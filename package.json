@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder"
+    "dist": "yarn compile && electron-builder --win --x64"
   },
   "dependencies": {
     "source-map-support": "^0.5.21"
