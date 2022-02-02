@@ -31,7 +31,8 @@
     "appId": "it.n1xx1.foundryvtt",
     "win": {
       "target": "portable",
-      "icon": "customicon.ico"
+      "icon": "customicon.ico",
+      "artifactName": "vtt-n1xx1.exe"
     }
   }
 }

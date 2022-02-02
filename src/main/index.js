@@ -1,10 +1,13 @@
-import { app, BrowserWindow, ipcMain, session } from "electron";
+import { app, BrowserWindow } from "electron";
 import { resolve } from "path";
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1024,
     height: 700,
+    minWidth: 800,
+    minHeight: 600,
+
     webPreferences: {
       preload: resolve(app.getAppPath(), "preload.js"),
       nodeIntegration: false,
@@ -14,19 +17,15 @@ function createWindow() {
   mainWindow.setMenu(null);
 
   const userAgent = mainWindow.webContents.getUserAgent();
-  mainWindow.loadURL("http://localhost:3001", {
-    userAgent: userAgent.replace(/electron\/[\d\.]+/i, ""),
+  mainWindow.loadURL("https://vtt.n1xx1.me/", {
+    userAgent: userAgent.replace(
+      /electron\/[\d\.]+/i,
+      "custom-foundry-client/0.0.0"
+    ),
   });
-  mainWindow.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
-  ipcMain.on("foundry-client-open", (url) => {
-    mainWindow.loadURL(url, {
-      userAgent: userAgent.replace(/electron\/[\d\.]+/i, ""),
-    });
-  });
-
   createWindow();
   app.on("activate", function () {
     if (BrowserWindow.getAllWindows().length === 0) {
