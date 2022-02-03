@@ -18,6 +18,7 @@ function onFoundryLoaded() {
     if (auto.user) {
       form.form.userid.value = auto.user;
       form.form.password.value = auto.password;
+      form._setMode("join");
     }
     form.form.addEventListener("submit", (e) => {
       localStorage.setItem(

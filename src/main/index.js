@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, session } from "electron";
 import { resolve } from "path";
 
 function createWindow() {
@@ -7,22 +7,20 @@ function createWindow() {
     height: 700,
     minWidth: 800,
     minHeight: 600,
-
+    autoHideMenuBar: true,
     webPreferences: {
       preload: resolve(app.getAppPath(), "preload.js"),
       nodeIntegration: false,
       contextIsolation: true,
     },
   });
-  mainWindow.setMenu(null);
 
-  const userAgent = mainWindow.webContents.getUserAgent();
-  mainWindow.loadURL("https://vtt.n1xx1.me/", {
-    userAgent: userAgent.replace(
-      /electron\/[\d\.]+/i,
-      "custom-foundry-client/0.0.0"
-    ),
-  });
+  mainWindow.webContents.userAgent = mainWindow.webContents.userAgent.replace(
+    /electron\/[\d\.]+/i,
+    "custom-foundry-client/0.0.0"
+  );
+
+  mainWindow.loadURL("https://vtt.n1xx1.me/");
 }
 
 app.whenReady().then(() => {
